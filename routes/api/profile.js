@@ -296,8 +296,11 @@ router.delete(
 router.delete(
   "/",
   passport.authenticate("jwt", { session: false }),
+  // this logic deletes entire user
   (req, res) => {
+    // profile collection matching
     Profile.findOneAndRemove({ user: req.user.id }).then(() => {
+      // user collection matching
       User.findOneAndRemove({ _id: req.user.id }).then(() =>
         res.json({ success: true })
       );

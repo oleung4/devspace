@@ -21,10 +21,9 @@ const User = require("../../models/User");
 // instead of app.use
 router.get("/test", (req, res) => res.json({ msg: "Users works" })); // much like res.send, we instead want api to serve json
 
-// @route   GET api/users/register
+// @route   POST api/users/register
 // @desc    Register user
 // access   Public
-
 router.post("/register", (req, res) => {
   const { errors, isValid } = validateRegisterInput(req.body);
 
@@ -70,7 +69,6 @@ router.post("/register", (req, res) => {
 // @route   GET api/users/login
 // @desc    Login user / Returning JWT token
 // access   Public
-
 router.post("/login", (req, res) => {
   const { errors, isValid } = validateLoginInput(req.body);
 
@@ -119,7 +117,6 @@ router.post("/login", (req, res) => {
 // @route   GET api/users/current
 // @desc    Return current user
 // access   Private
-
 router.get(
   "/current",
   passport.authenticate("jwt", { session: false }),

@@ -1,6 +1,9 @@
 import React, { Component } from "react";
-import axios from "axios";
+import PropTypes from "prop-types";
+// import { withRouter } from "react-router-dom"; // see below
 import classnames from "classnames";
+import { connect } from "react-redux"; // when using redux within a component
+import { registerUser } from "../../actions/authActions";
 
 class Register extends Component {
   constructor() {
@@ -14,6 +17,27 @@ class Register extends Component {
     };
 
     // this.onChange = this.onChange.bind(this);
+  }
+
+  // UNSAFE_componentWillReceiveProps(nextProps) {
+  //   if (nextProps.errors) {
+  //     this.setState({ errors: nextProps.errors });
+  //   }
+  // }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.auth.isAuthenticated) {
+      nextProps.history.push("/dashboard");
+    }
+    if (nextProps.errors !== prevState.errors) {
+      return { errors: nextProps.errors };
+    } else return null;
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.errors !== prevState.errors) {
+      this.setState({ errors: prevProps.errors });
+    }
   }
 
   onChange = e => {
@@ -32,11 +56,7 @@ class Register extends Component {
       password2: this.state.password2
     };
 
-    axios
-      .post("/api/users/register", newUser) // we can use shorthand for the route to backend because of the proxy value we set in package.json
-      .then(res => console.log(res.data))
-      // we want the errors to display below the respective form inputs
-      .catch(err => this.setState({ errors: err.response.data }));
+    this.props.registerUser(newUser, this.props.history); // this.props.history is from react-router-dom {router / route}
   };
 
   render() {
@@ -78,7 +98,7 @@ class Register extends Component {
                     value={this.state.email}
                     onChange={this.onChange}
                   />
-                  {errors.name && (
+                  {errors.email && (
                     <div className="invalid-feedback">{errors.email}</div>
                   )}
                   <small className="form-text text-muted">
@@ -97,7 +117,7 @@ class Register extends Component {
                     value={this.state.password}
                     onChange={this.onChange}
                   />
-                  {errors.name && (
+                  {errors.password && (
                     <div className="invalid-feedback">{errors.password}</div>
                   )}
                 </div>
@@ -112,7 +132,7 @@ class Register extends Component {
                     value={this.state.password2}
                     onChange={this.onChange}
                   />
-                  {errors.name && (
+                  {errors.password2 && (
                     <div className="invalid-feedback">{errors.password2}</div>
                   )}
                 </div>
@@ -126,4 +146,18 @@ class Register extends Component {
   }
 }
 
-export default Register;
+Register.propTypes = {
+  registerUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth,
+  errors: state.errors
+});
+
+export default connect(
+  mapStateToProps,
+  { registerUser }
+)(Register); // no need to wrap withRouter as this component is already set as a route in app.js

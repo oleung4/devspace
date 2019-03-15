@@ -11,7 +11,7 @@ class Navbar extends Component {
     e.preventDefault();
     this.props.clearCurrentProfile();
     this.props.logoutUser();
-    this.props.history.push("/");
+    // this.props.history.push("/"); // commented after introducing private route in app.js
   };
 
   removeErrors = () => {

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getCurrentProfile, deleteAccount } from "../../actions/profileActions";
+import { clearErrors } from "../../actions/authActions";
 import Spinner from "../common/Spinner";
 import ProfileActions from "./ProfileActions";
 
@@ -10,6 +11,7 @@ class Dashboard extends Component {
   componentDidMount() {
     // our ajax request
     this.props.getCurrentProfile();
+    this.props.clearErrors(); // clear any errors when redirected
   }
 
   onDeleteClick = e => {
@@ -85,5 +87,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getCurrentProfile, deleteAccount }
+  { getCurrentProfile, deleteAccount, clearErrors }
 )(Dashboard);

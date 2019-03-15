@@ -41,7 +41,6 @@ router.get(
 // @route   POST api/profile/all
 // @desc    Get all profiles
 // access   Public
-
 router.get("/all", (req, res) => {
   const errors = {};
 
@@ -61,7 +60,6 @@ router.get("/all", (req, res) => {
 // @route   POST api/profile/handle/:handle - backend route, frontend will look slightly cleaner
 // @desc    Get profile by handle
 // access   Public
-
 router.get("/handle/:handle", (req, res) => {
   const errors = {};
 
@@ -81,7 +79,6 @@ router.get("/handle/:handle", (req, res) => {
 // @route   POST api/profile/user/:user_id
 // @desc    Get profile by user ID
 // access   Public
-
 router.get("/user/:user_id", (req, res) => {
   const errors = {};
 
@@ -103,7 +100,6 @@ router.get("/user/:user_id", (req, res) => {
 // @route   POST api/profile
 // @desc    Create or edit user profile
 // access   Private
-
 router.post(
   "/",
   passport.authenticate("jwt", { session: false }),
@@ -170,7 +166,6 @@ router.post(
 // @route   POST api/profile/experience
 // @desc    Add experience to profile
 // access   Private
-
 router.post(
   "/experience",
   passport.authenticate("jwt", { session: false }),
@@ -206,7 +201,6 @@ router.post(
 // @route   POST api/profile/education
 // @desc    Add education to profile
 // access   Private
-
 router.post(
   "/education",
   passport.authenticate("jwt", { session: false }),
@@ -242,7 +236,6 @@ router.post(
 // @route   DELETE api/profile/experience/:exp_id
 // @desc    Delete experience from profile
 // access   Private
-
 router.delete(
   "/experience/:exp_id",
   passport.authenticate("jwt", { session: false }),
@@ -267,7 +260,6 @@ router.delete(
 // @route   DELETE api/profile/education/:edu_id
 // @desc    Delete education from profile
 // access   Private
-
 router.delete(
   "/education/:edu_id",
   passport.authenticate("jwt", { session: false }),
@@ -292,7 +284,6 @@ router.delete(
 // @route   DELETE api/profile/
 // @desc    Delete user and profile
 // access   Private
-
 router.delete(
   "/",
   passport.authenticate("jwt", { session: false }),

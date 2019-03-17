@@ -57,7 +57,7 @@ router.get("/all", (req, res) => {
     .catch(err => res.status(404).json({ profile: "There are no profiles" }));
 });
 
-// @route   POST api/profile/handle/:handle - backend route, frontend will look slightly cleaner
+// @route   GET api/profile/handle/:handle - backend route, frontend will look slightly cleaner
 // @desc    Get profile by handle
 // access   Public
 router.get("/handle/:handle", (req, res) => {
@@ -69,14 +69,14 @@ router.get("/handle/:handle", (req, res) => {
       if (!profile) {
         errors.noprofile = "There is no profile for this user";
         res.status(404).json(errors);
+      } else {
+        res.json(profile);
       }
-
-      res.json(profile);
     })
     .catch(err => res.status(404).json(err));
 });
 
-// @route   POST api/profile/user/:user_id
+// @route   GET api/profile/user/:user_id
 // @desc    Get profile by user ID
 // access   Public
 router.get("/user/:user_id", (req, res) => {
@@ -88,9 +88,9 @@ router.get("/user/:user_id", (req, res) => {
       if (!profile) {
         errors.noprofile = "There is no profile for this user";
         res.status(404).json(errors);
+      } else {
+        res.json(profile);
       }
-
-      res.json(profile);
     })
     .catch(err =>
       res.status(404).json({ profile: "There is no profile for this user" })

@@ -2,6 +2,7 @@ import {
   ADD_POST,
   GET_POSTS,
   GET_POST,
+  LIKE_POST,
   POST_LOADING,
   DELETE_POST
 } from "../actions/types";
@@ -30,6 +31,17 @@ export default function(state = initialState, action) {
         ...state,
         post: action.payload,
         loading: false
+      };
+    case LIKE_POST:
+      return {
+        ...state,
+        posts: state.posts.map(post => {
+          if (post._id === action.payload._id) {
+            return action.payload;
+          } else {
+            return post;
+          }
+        })
       };
     case ADD_POST:
       return {

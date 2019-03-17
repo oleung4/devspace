@@ -14,7 +14,7 @@ import {
 export const getCurrentProfile = () => dispatch => {
   dispatch(setProfileLoading());
   axios
-    .get("./api/profile")
+    .get("/api/profile")
     .then(res =>
       dispatch({
         type: GET_PROFILE,
@@ -26,6 +26,26 @@ export const getCurrentProfile = () => dispatch => {
       dispatch({
         type: GET_PROFILE,
         payload: {}
+      })
+    );
+};
+
+// Get profile by handle
+export const getProfileByHandle = handle => dispatch => {
+  dispatch(setProfileLoading());
+  axios
+    .get(`/api/profile/handle/${handle}`)
+    .then(res =>
+      dispatch({
+        type: GET_PROFILE,
+        payload: res.data
+      })
+    )
+    // if the user did not create a profile
+    .catch(err =>
+      dispatch({
+        type: GET_PROFILE,
+        payload: null // we want to check to see if its null
       })
     );
 };

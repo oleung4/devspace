@@ -259,10 +259,10 @@ class EditProfile extends Component {
                 />
                 <TextFieldGroup
                   placeholder="Github Username"
-                  name="github"
-                  value={this.state.github}
+                  name="githubusername"
+                  value={this.state.githubusername}
                   onChange={this.onChange}
-                  error={errors.github}
+                  error={errors.githubusername}
                   info="If you want your latest repos and a Github link, include your username"
                 />
                 <TextAreaFieldGroup

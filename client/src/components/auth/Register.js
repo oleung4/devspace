@@ -29,13 +29,17 @@ class Register extends Component {
     if (nextProps.auth.isAuthenticated) {
       nextProps.history.push("/dashboard");
     }
+    // console.log(nextProps.errors);
     if (nextProps.errors !== prevState.errors) {
+      // this condition will always fire off
       return { errors: nextProps.errors };
-    } else return null;
+    }
+    return null;
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.errors !== prevState.errors) {
+    // console.log(prevProps.errors, this.props.errors);
+    if (prevProps.errors !== this.props.errors) {
       this.setState({ errors: prevProps.errors });
     }
   }

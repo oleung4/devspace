@@ -11,7 +11,7 @@ class Navbar extends Component {
     e.preventDefault();
     this.props.clearCurrentProfile();
     this.props.logoutUser();
-    // this.props.history.push("/"); // commented after introducing private route in app.js
+    this.props.history.push("/login"); // commented after introducing private route in app.js - uncommented to fix page not found redirect
   };
 
   removeErrors = () => {
@@ -23,6 +23,11 @@ class Navbar extends Component {
 
     const authLinks = (
       <ul className="navbar-nav ml-auto">
+        <li className="nav-item">
+          <Link className="nav-link" to="/feed">
+            Post Feed
+          </Link>
+        </li>
         <li className="nav-item">
           <Link className="nav-link" to="/dashboard">
             Dashboard

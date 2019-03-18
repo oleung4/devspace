@@ -4,8 +4,8 @@ const mongoose = require("mongoose"); // we'll be dealing with the db
 const passport = require("passport");
 
 const axios = require("axios");
-const dotenv = require("dotenv");
-dotenv.config();
+// const dotenv = require("dotenv");
+// dotenv.config();
 
 // Load validation
 const validateProfileInput = require("../../validation/profile");

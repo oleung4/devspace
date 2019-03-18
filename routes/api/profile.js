@@ -4,6 +4,7 @@ const mongoose = require("mongoose"); // we'll be dealing with the db
 const passport = require("passport");
 
 const axios = require("axios");
+// UNCOMMENT FOR LOCAL DEVELOPMENT
 // const dotenv = require("dotenv");
 // dotenv.config();
 

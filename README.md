@@ -1,5 +1,4 @@
 # devspace
-
 ## Social developer platform following Brad Travery's Udemy course using the MERN stack
 
 Run 'npm install' for backend packages.

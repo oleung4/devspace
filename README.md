@@ -1,5 +1,5 @@
 # devspace
-##Social developer platform following Brad Travery's Udemy course
+## Social developer platform following Brad Travery's Udemy course
 
 Run 'npm install' for backend packages.
 

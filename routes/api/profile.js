@@ -4,9 +4,7 @@ const mongoose = require("mongoose"); // we'll be dealing with the db
 const passport = require("passport");
 
 const axios = require("axios");
-// UNCOMMENT FOR LOCAL DEVELOPMENT
-// const dotenv = require("dotenv");
-// dotenv.config();
+const db = require("../../config/keys");
 
 // Load validation
 const validateProfileInput = require("../../validation/profile");
@@ -107,8 +105,8 @@ router.get("/user/:user_id", (req, res) => {
 // @access      Public
 router.get("/github/:username/", (req, res, next) => {
   const username = req.params.username,
-    clientId = process.env.GITHUB_CLIENT_ID,
-    clientSecret = process.env.GITHUB_CLIENT_SECRET,
+    clientId = db.githubClientId,
+    clientSecret = db.githubClientSecret,
     count = 5;
   sort = "created: asc";
 

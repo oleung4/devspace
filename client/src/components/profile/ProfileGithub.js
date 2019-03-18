@@ -1,33 +1,30 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import axios from "axios";
 
 class ProfileGithub extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      clientId: "c32c63d06dd65d4cd3ff",
-      clientSecret: "022078b2822c8cb892a605aba1957db65c61ee96",
-      count: 5,
-      sort: "created: asc",
       repos: []
     };
   }
 
   componentDidMount() {
     const { username } = this.props;
-    const { count, sort, clientId, clientSecret } = this.state;
 
-    fetch(
-      `https://api.github.com/users/${username}/repos?per_page=${count}&sort=${sort}&client_id=${clientId}&client_secret=${clientSecret}`
-    )
-      .then(res => res.json())
-      .then(data => {
-        if (this.refs.myRef) {
-          this.setState({ repos: data });
+    axios.get(`/api/profile/github/${username}`).then(data => {
+      if (this.refs.myRef) {
+        // console.log(data.data);
+        // check for if user entered exists
+        if (data.data.message === "Not Found") {
+          return null;
         }
-      })
-      .catch(err => console.log(err));
+        this.setState({ repos: data.data });
+      }
+    });
   }
+
   render() {
     const { repos } = this.state;
 
@@ -65,7 +62,10 @@ class ProfileGithub extends Component {
     return (
       <div ref="myRef">
         <hr />
-        <h3 className="mb-4">Latest Github Repos</h3>
+        {/* Don't display if no user / repos */}
+        {repos.length > 0 ? (
+          <h3 className="mb-4">Latest Github Repos</h3>
+        ) : null}
         {repoItems}
       </div>
     );

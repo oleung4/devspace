@@ -3,6 +3,10 @@ const router = express.Router();
 const mongoose = require("mongoose"); // we'll be dealing with the db
 const passport = require("passport");
 
+const axios = require("axios");
+const dotenv = require("dotenv");
+dotenv.config();
+
 // Load validation
 const validateProfileInput = require("../../validation/profile");
 const validateExperienceInput = require("../../validation/experience");
@@ -95,6 +99,27 @@ router.get("/user/:user_id", (req, res) => {
     .catch(err =>
       res.status(404).json({ profile: "There is no profile for this user" })
     );
+});
+
+// @route       GET api/profile/github/:username
+// @desc        Get github data from github api
+// @access      Public
+router.get("/github/:username/", (req, res, next) => {
+  const username = req.params.username,
+    clientId = process.env.GITHUB_CLIENT_ID,
+    clientSecret = process.env.GITHUB_CLIENT_SECRET,
+    count = 5;
+  sort = "created: asc";
+
+  axios
+    .get(
+      `https://api.github.com/users/${username}/repos?per_page=${count}&sort=${sort}&client_id=${clientId}&client_secret=${clientSecret}`
+    )
+    .then(
+      github => res.json(github.data)
+      // console.log(data)
+    )
+    .catch(err => res.json(err.response.data));
 });
 
 // @route   POST api/profile

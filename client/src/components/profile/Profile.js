@@ -28,7 +28,7 @@ class Profile extends Component {
       this.props.history.push("/not-found");
       return true;
     }
-    console.log("shouldComponentUpdate");
+    // console.log("shouldComponentUpdate");
     this.forceUpdate(); // incase profile doesn't load
     return false;
   }

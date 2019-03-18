@@ -63,9 +63,9 @@ class ProfileGithub extends Component {
       <div ref="myRef">
         <hr />
         {/* Don't display if no user / repos */}
-        {repos.length > 0 ? (
-          <h3 className="mb-4">Latest Github Repos</h3>
-        ) : null}
+        {/* {repos.length > 0 ? ( */}
+        <h3 className="mb-4">Latest Github Repos</h3>
+        {/* ) : null} */}
         {repoItems}
       </div>
     );
